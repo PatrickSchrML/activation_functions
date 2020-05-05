@@ -42,7 +42,7 @@ def _vgg(arch, cfg, batch_norm, pretrained, pretrained_classifier, progress, dev
     if pretrained_classifier:
         script_dir = os.path.dirname(__file__)
         state_dict = torch.load(script_dir + '/state_dicts/'+arch+'.pt', map_location=device)
-        state_dict = {k.replace('classifier.'): v for k, v in state_dict.items() if 'classifier' in k}
+        state_dict = {k.replace('classifier.', ''): v for k, v in state_dict.items() if 'classifier' in k}
         model.classifier.load_state_dict(state_dict)
     if pretrained:
         script_dir = os.path.dirname(__file__)
