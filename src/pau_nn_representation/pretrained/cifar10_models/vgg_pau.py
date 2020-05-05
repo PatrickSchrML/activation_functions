@@ -41,6 +41,9 @@ def _vgg(arch, cfg, batch_norm, pretrained, pretrained_classifier, progress, dev
 
     if pretrained_classifier:
         script_dir = os.path.dirname(__file__)
+        print('TESTING')
+        print(script_dir)
+        print(arch.replace())
         state_dict = torch.load(script_dir + '/state_dicts/'+arch.replace+'.pt', map_location=device)
         model.classifier.load_state_dict(state_dict.classifier)  # TODO PAU
     if pretrained:
