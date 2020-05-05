@@ -130,9 +130,14 @@ class CIFAR10_Module_represention(CIFAR10_Module):
         super().__init__(hparams)
         self.model = get_classifier(hparams.classifier, hparams.pretrained, use_classifier=False)
         self.model.eval()
+
+        pretrained_classifier = hparams.pretrained_classifier
+        if hparams.pretrained_classifier:
+            pretrained_classifier = hparams.classifier
+
         self.model_approx = get_classifier(hparams.classifier_approx,
                                            hparams.pretrained_approx,
-                                           hparams.pretrained_classifier,
+                                           pretrained_classifier,
                                            use_classifier=False)
         self.criterion_repr = torch.nn.MSELoss()
 

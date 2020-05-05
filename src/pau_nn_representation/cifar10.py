@@ -49,7 +49,7 @@ def finetune_representations(hparams):
     checkpoint_path = os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier, 'lightning_logs', 'version_0',
                                    'checkpoints')
     classifier = CIFAR10_Module.load_from_checkpoint(os.path.join(checkpoint_path, os.listdir(checkpoint_path)[0]))
-    statedict_path = os.path.join(os.getcwd(), 'cifar10_models', 'state_dicts', hparams.classifier + '.pt')
+    statedict_path = os.path.join(os.getcwd(), 'trained_models', 'cifar10_models', 'state_dicts', hparams.classifier + '.pt')
     torch.save(classifier.model.state_dict(), statedict_path)
 
 
@@ -58,6 +58,7 @@ def prepare(hparams):
     model = CIFAR10_Module(hparams)
     trainloader = model.train_dataloader()
     testloader = model.val_dataloader()
+
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -71,7 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('--learning_rate', type=float, default=1e-2)
     parser.add_argument('--weight_decay', type=float, default=1e-2)
     parser.add_argument('--reduce_lr_per', type=int, default=50)
-    parser.add_argument('--optimizer', type=str, default='SGD', choices=['SGD', 'AdamW'])
+    parser.add_argument('--optimizer', type=str, default='SGD', choices=['SGD', 'Adam'])
     parser.add_argument('--pretrained', type=bool, default=True)
     parser.add_argument('--pretrained_approx', type=bool, default=False)
     parser.add_argument('--pretrained_classifier', type=bool, default=True)
