@@ -3,3 +3,6 @@
 /src/pau_nn_representation/pretrained/cifar10_models/.ipynb_checkpoints/
 /src/pau_nn_representation/pretrained/tensorboard_logs/
 *.pyc
+/.idea/
+/cifar10_models/state_dicts/
+/state_dicts.zip
