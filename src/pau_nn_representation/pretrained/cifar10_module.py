@@ -134,7 +134,7 @@ class CIFAR10_Module_represention(CIFAR10_Module):
                                            hparams.pretrained_approx,
                                            hparams.pretrained_classifier,
                                            use_classifier=False)
-        self.criterion_repr = torch.nn.MSE()
+        self.criterion_repr = torch.nn.MSELoss()
 
     def forward(self, batch):
         images, labels = batch
