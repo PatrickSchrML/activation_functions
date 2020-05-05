@@ -67,6 +67,7 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', type=str, default='/media/disk2/datasets/pytorch_dataset/cifar10/')
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--batch_size', type=int, default=256)
+    parser.add_argument('--max_epochs', type=int, default=100)
     parser.add_argument('--learning_rate', type=float, default=1e-2)
     parser.add_argument('--weight_decay', type=float, default=1e-2)
     parser.add_argument('--reduce_lr_per', type=int, default=50)
