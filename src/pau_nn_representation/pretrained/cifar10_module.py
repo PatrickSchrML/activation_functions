@@ -110,14 +110,14 @@ class CIFAR10_Module(pl.LightningModule):
                                               transforms.RandomHorizontalFlip(),
                                               transforms.ToTensor(),
                                               transforms.Normalize(self.mean, self.std)])
-        dataset = CIFAR10(root=self.hparams.data_dir, train=True, transform=transform_train, download=True)
+        dataset = CIFAR10(root=self.hparams.data_dir, train=True, transform=transform_train)
         dataloader = DataLoader(dataset, batch_size=self.hparams.batch_size, num_workers=4, shuffle=False, drop_last=False, pin_memory=True)
         return dataloader
     
     def val_dataloader(self):
         transform_val = transforms.Compose([transforms.ToTensor(),
                                             transforms.Normalize(self.mean, self.std)])
-        dataset = CIFAR10(root=self.hparams.data_dir, train=False, transform=transform_val)
+        dataset = CIFAR10(root=self.hparams.data_dir, train=False, transform=transform_val, download=True)
         dataloader = DataLoader(dataset, batch_size=self.hparams.batch_size, num_workers=4, shuffle=True, pin_memory=True)
         return dataloader
     
