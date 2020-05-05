@@ -62,8 +62,8 @@ def prepare(hparams):
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('--train_mode', type=str, default='train_representations')
-    parser.add_argument('--classifier', type=str, default='vgg16_bn')
-    parser.add_argument('--classifier_approx', type=str, default='vgg8_bn_pau')
+    parser.add_argument('--classifier', type=str, default='vgg19_bn')
+    parser.add_argument('--classifier_approx', type=str, default='vgg11_bn_pau')
     parser.add_argument('--data_dir', type=str, default='/media/disk2/datasets/pytorch_dataset/cifar10/')
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--batch_size', type=int, default=256)
