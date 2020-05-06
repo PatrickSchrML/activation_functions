@@ -16,19 +16,19 @@ expected_res = np.array(
     [-0.13355141377739513, -0.0619413757811037, -0.03646978148253958, -0.032655850878918466, -0.01944828952873663,
      -0.010106687605756857, -0.02000806000270244, 0.09163206842254161, 0.48498930771604903, 0.9998907488864881,
      2.0005508674368584, 2.997343831178446, 4.0035305482127255, 4.98806094915683, 5.926454739793884])
-print('Pade A pass test: ', np.all(np.isclose(PAU(version='A', cuda=False)(inp).detach().numpy(), expected_res)))
+print('Pade A pass test: ', np.all(np.isclose(PAU(version='A', cuda=True)(inp).detach().numpy(), expected_res)))
 
 expected_res = np.array(
     [-0.1335534260726669, -0.061942266528118566, -0.036470252999078044, -0.03265619211367341, -0.019448420790274566,
      -0.010106709442643294, -0.020008068455664735, 0.09163206842254161, 0.48498968020087785, 0.9998917307389753,
      2.0005524015430365, 2.9973454127699837, 4.003532018471603, 4.988062253138456, 5.926455867099212])
-print('Pade B pass test: ', np.all(np.isclose(PAU(version='B', cuda=False)(inp).detach().numpy(), expected_res)))
+print('Pade B pass test: ', np.all(np.isclose(PAU(version='B', cuda=True)(inp).detach().numpy(), expected_res)))
 
 expected_res = np.array(
     [-0.13560896177554654, -0.0635304197793349, -0.03814467483896467, -0.03565460387705061, -0.02381404596768598,
      -0.019051035688668942, -0.07533562984157928, 0.916320684225416, 1.8261152003712784, 1.8847829043648106,
      2.4496170351652955, 3.2725513632211634, 4.187339719909377, 5.115950575831143, 6.017669233625428])
-print('Pade C pass test: ', np.all(np.isclose(PAU(version='C', cuda=False)(inp).detach().numpy(), expected_res)))
+print('Pade C pass test: ', np.all(np.isclose(PAU(version='C', cuda=True)(inp).detach().numpy(), expected_res)))
 
 # computed by hand
 expected_res = np.array(
@@ -36,7 +36,7 @@ expected_res = np.array(
      0.08571428571428572, -0.045454545454545456, -1.0, -0.45454545454545453, -0.6, -1.1505376344086022,
      -1.7480383609415868, -2.3495293045854844, -2.951123374063855, -3.552412208729898])
 print('Pade A pass test: ', np.all(np.isclose(
-    PAU(version='A', w_numerator=[-1, -2, -3, -4, -5, -6], w_denominator=[-7, -8, -9, -10], cuda=False)(
+    PAU(version='A', w_numerator=[-1, -2, -3, -4, -5, -6], w_denominator=[-7, -8, -9, -10], cuda=True)(
         inp).detach().numpy(), expected_res)))
 
 expected_res = np.array(
@@ -44,7 +44,7 @@ expected_res = np.array(
      -1.0, -0.45454545454545453, -0.6, -1.1505376344086022, -1.7480383609415868, -2.3495293045854844,
      -2.951123374063855, -3.552412208729898])
 print('Pade B pass test: ', np.all(np.isclose(
-    PAU(version='B', w_numerator=[-1, -2, -3, -4, -5, -6], w_denominator=[-7, -8, -9, -10], cuda=False)(
+    PAU(version='B', w_numerator=[-1, -2, -3, -4, -5, -6], w_denominator=[-7, -8, -9, -10], cuda=True)(
         inp).detach().numpy(), expected_res)))
 
 expected_res = np.array(
@@ -52,5 +52,5 @@ expected_res = np.array(
      1.4285714285714286, -0.17857142857142858, -10.0, -0.5102040816326531, -0.6158357771260997, -1.1542610571736784,
      -1.749411046156531, -2.350171622976216, -2.9514723853825835, -3.552622078101102])
 print('Pade C pass test: ', np.all(np.isclose(
-    PAU(version='C', w_numerator=[-1, -2, -3, -4, -5, -6], w_denominator=[-7, -8, -9, -10], cuda=False)(
+    PAU(version='C', w_numerator=[-1, -2, -3, -4, -5, -6], w_denominator=[-7, -8, -9, -10], cuda=True)(
         inp).detach().numpy(), expected_res)))
