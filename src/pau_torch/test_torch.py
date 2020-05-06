@@ -1,5 +1,4 @@
 import torch
-
 from pau_torch.pade_activation_unit import PAU
 import numpy as np
 
