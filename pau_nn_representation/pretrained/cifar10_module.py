@@ -107,7 +107,7 @@ class CIFAR10_Module(pl.LightningModule):
         optimizer_dict = [{'params': params}]
 
         if len(params_pau) > 0:
-            optimizer_dict.append({'params': params_pau, 'weight_decay': 0., 'lr': 0.1})
+            optimizer_dict.append({'params': params_pau, 'weight_decay': 0., 'lr': self.hparams.learning_rate})
 
         if self.hparams.optimizer == 'AdamW':
             optimizer = torch.optim.AdamW(optimizer_dict, lr=self.hparams.learning_rate,
@@ -172,15 +172,6 @@ class CIFAR10_Module_represention(CIFAR10_Module):
                                     use_classifier=False)
         self.criterion_repr = torch.nn.MSELoss()
 
-    def configure_optimizers(self):
-        if self.hparams.optimizer == 'AdamW':
-            optimizer = torch.optim.AdamW(self.model.parameters(), lr=self.hparams.learning_rate,
-                                          weight_decay=self.hparams.weight_decay)
-        elif self.hparams.optimizer == 'SGD':
-            optimizer = torch.optim.SGD(self.model.parameters(), lr=self.hparams.learning_rate,
-                                        weight_decay=self.hparams.weight_decay, momentum=0.9, nesterov=True)
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=self.hparams.reduce_lr_per, gamma=0.1)
-        return [optimizer], [scheduler]
 
     def forward(self, batch):
         images, labels = batch
