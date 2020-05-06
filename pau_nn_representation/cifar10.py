@@ -22,10 +22,12 @@ def train_representations(hparams):
     trainer.fit(classifier)
 
     # Save weights from checkpoint
-    checkpoint_path = os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier_approx, 'lightning_logs', 'version_0',
+    checkpoint_path = os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier_approx + '_representation',
+                                   'lightning_logs', 'version_0',
                                    'checkpoints')
     classifier = CIFAR10_Module_represention.load_from_checkpoint(os.path.join(checkpoint_path, os.listdir(checkpoint_path)[0]))
-    statedict_path = os.path.join(os.getcwd(), 'trained_models', 'cifar10_models', 'state_dicts', hparams.classifier + '.pt')
+    statedict_path = os.path.join(os.getcwd(), 'trained_models', 'cifar10_models', 'state_dicts',
+                                  hparams.classifier + '_representation.pt')
     torch.save(classifier.model.state_dict(), statedict_path)
 
 
@@ -70,10 +72,11 @@ def train_prediction(hparams):
     trainer.fit(classifier)
 
     # Save weights from checkpoint
-    checkpoint_path = os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier, 'lightning_logs', 'version_0',
+    checkpoint_path = os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier + '_prediction',
+                                   'lightning_logs', 'version_0',
                                    'checkpoints')
     classifier = CIFAR10_Module.load_from_checkpoint(os.path.join(checkpoint_path, os.listdir(checkpoint_path)[0]))
-    statedict_path = os.path.join(os.getcwd(), 'cifar10_models', 'state_dicts', hparams.classifier + '.pt')
+    statedict_path = os.path.join(os.getcwd(), 'cifar10_models', 'state_dicts', hparams.classifier + '_prediction.pt')
     torch.save(classifier.model.state_dict(), statedict_path)
 
 
