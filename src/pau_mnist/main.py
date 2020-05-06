@@ -18,13 +18,13 @@ class Net(nn.Module):
         self.dropout2 = nn.Dropout2d(0.)
         self.fc1 = nn.Linear(9216, 128)
         self.fc2 = nn.Linear(128, 10)
-        self.pau1 = nn.LeakyReLU() # PAU(trainable=True)
-        self.pau2 = nn.LeakyReLU() # PAU(trainable=True)
-        self.pau3 = PAU(trainable=False)
+        self.pau1 = nn.LeakyReLU()
+        self.pau2 = nn.LeakyReLU()
+        self.pau3 = nn.LeakyReLU()
 
-        #self.pau1 = nn.LeakyReLU()
-        #self.pau2 = nn.LeakyReLU()
-        #self.pau3 = nn.LeakyReLU()
+        #self.pau1 = PAU(trainable=True)
+        #self.pau2 = PAU(trainable=True)
+        #self.pau3 = PAU(trainable=False)
 
     def forward(self, x):
         x = self.conv1(x)
@@ -85,7 +85,7 @@ def main():
                         help='input batch size for testing (default: 1000)')
     parser.add_argument('--epochs', type=int, default=14, metavar='N',
                         help='number of epochs to train (default: 14)')
-    parser.add_argument('--lr', type=float, default=.00001, metavar='LR',
+    parser.add_argument('--lr', type=float, default=.001, metavar='LR',
                         help='learning rate (default: 1.0)')
     parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
                         help='Learning rate step gamma (default: 0.7)')
@@ -127,7 +127,7 @@ def main():
     for epoch in range(1, args.epochs + 1):
         train(args, model, device, train_loader, optimizer, epoch)
         test(model, device, test_loader)
-        scheduler.step()
+        #scheduler.step()
 
     if args.save_model:
         torch.save(model.state_dict(), "mnist_cnn.pt")
