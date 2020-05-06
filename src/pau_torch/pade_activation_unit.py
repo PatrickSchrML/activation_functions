@@ -48,5 +48,10 @@ class PAU(nn.Module):
             self.activation_function = pau_func
 
     def forward(self, x):
+        print(x.device)
+        print(self.center.device)
+        print(self.numerator.device)
+        print(self.denominator.device)
+
         out = self.activation_function(x + self.center, self.numerator, self.denominator, self.training)
         return out

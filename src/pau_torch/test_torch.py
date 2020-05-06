@@ -14,6 +14,7 @@ inp = torch.from_numpy(np.array(t)).reshape(-1)
 cuda = True
 if cuda:
     inp = inp.cuda()
+
 # computed by hand
 expected_res = np.array(
     [-0.13355141377739513, -0.0619413757811037, -0.03646978148253958, -0.032655850878918466, -0.01944828952873663,
