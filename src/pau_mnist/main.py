@@ -7,7 +7,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 from pau_torch.pade_activation_unit import PAU
-
+from torch.nn.utils import clip_grad_value_, clip_grad_norm_
 
 class Net(nn.Module):
     def __init__(self):
@@ -50,6 +50,7 @@ def train(args, model, device, train_loader, optimizer, epoch):
         output = model(data)
         loss = F.nll_loss(output, target)
         loss.backward()
+        clip_grad_norm_(model.parameters(), 5., norm_type=2)
         optimizer.step()
         if batch_idx % args.log_interval == 0:
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
