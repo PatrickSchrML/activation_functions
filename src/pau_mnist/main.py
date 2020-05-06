@@ -20,7 +20,7 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(128, 10)
         self.pau1 = nn.LeakyReLU() # PAU(trainable=True)
         self.pau2 = nn.LeakyReLU() # PAU(trainable=True)
-        self.pau3 = PAU(trainable=True, train_center=False)
+        self.pau3 = PAU(trainable=False, train_center=False)
 
         #self.pau1 = nn.LeakyReLU()
         #self.pau2 = nn.LeakyReLU()
