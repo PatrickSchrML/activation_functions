@@ -66,7 +66,7 @@ def train_prediction(hparams):
     classifier = CIFAR10_Module(hparams)
     trainer = Trainer(default_save_path=os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier),
                       gpus=[hparams.gpu], max_epochs=hparams.max_epochs,
-                      early_stop_callback=False, gradient_clip_val=5)
+                      early_stop_callback=False)
     trainer.fit(classifier)
 
     # Save weights from checkpoint
