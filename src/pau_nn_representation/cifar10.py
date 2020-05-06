@@ -53,11 +53,28 @@ def finetune_representations(hparams):
     torch.save(classifier.model.state_dict(), statedict_path)
 
 
-def prepare(hparams):
+def train_prediction(hparams):
+    # Reproducibility
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.manual_seed(0)
+
+    # Set GPU
     torch.cuda.set_device(hparams.gpu)
-    model = CIFAR10_Module(hparams)
-    trainloader = model.train_dataloader()
-    testloader = model.val_dataloader()
+
+    # Train
+    classifier = CIFAR10_Module(hparams)
+    trainer = Trainer(default_save_path=os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier),
+                      gpus=[hparams.gpu], max_epochs=hparams.max_epochs,
+                      early_stop_callback=False, gradient_clip_val=5)
+    trainer.fit(classifier)
+
+    # Save weights from checkpoint
+    checkpoint_path = os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier, 'lightning_logs', 'version_0',
+                                   'checkpoints')
+    classifier = CIFAR10_Module.load_from_checkpoint(os.path.join(checkpoint_path, os.listdir(checkpoint_path)[0]))
+    statedict_path = os.path.join(os.getcwd(), 'cifar10_models', 'state_dicts', hparams.classifier + '.pt')
+    torch.save(classifier.model.state_dict(), statedict_path)
 
 
 if __name__ == '__main__':
@@ -72,13 +89,15 @@ if __name__ == '__main__':
     parser.add_argument('--learning_rate', type=float, default=1e-2)
     parser.add_argument('--weight_decay', type=float, default=1e-2)
     parser.add_argument('--reduce_lr_per', type=int, default=50)
-    parser.add_argument('--optimizer', type=str, default='SGD', choices=['SGD', 'Adam'])
-    parser.add_argument('--pretrained', type=bool, default=True)
-    parser.add_argument('--pretrained_approx', type=bool, default=False)
-    parser.add_argument('--pretrained_classifier', type=bool, default=True)
+    parser.add_argument('--optimizer', type=str, default='SGD', choices=['SGD', 'AdamW'])
+    parser.add_argument('--pretrained', default=False, action="store_true")
+    parser.add_argument('--pretrained_approx', default=False, action="store_true")
+    parser.add_argument('--pretrained_classifier', default=False, action="store_true")
     args = parser.parse_args()
 
     if args.train_mode == 'train_representations':
         train_representations(args)
     elif args.train_mode == 'finetune_representations':
         finetune_representations(args)
+    elif args.train_mode == 'train_prediction':
+        train_prediction(args)

@@ -19,9 +19,9 @@ def make_layers(cfg, batch_norm=False):
         else:
             conv2d = nn.Conv2d(in_channels, v, kernel_size=3, padding=1)
             if batch_norm:
-                layers += [conv2d, nn.BatchNorm2d(v), PAU()]
+                layers += [conv2d, nn.BatchNorm2d(v), PAU(version="A", train_center=False)]
             else:
-                layers += [conv2d, PAU()]
+                layers += [conv2d, PAU(version="A", train_center=False)]
             in_channels = v
     return nn.Sequential(*layers)
 
@@ -44,10 +44,12 @@ def _vgg(arch, cfg, batch_norm, pretrained, pretrained_classifier, progress, dev
         state_dict = torch.load(script_dir + '/state_dicts/'+arch+'.pt', map_location=device)
         state_dict = {k.replace('classifier.', ''): v for k, v in state_dict.items() if 'classifier' in k}
         model.classifier.load_state_dict(state_dict)
+
     if pretrained:
         script_dir = os.path.dirname(__file__)
         state_dict = torch.load(script_dir + '/state_dicts/'+arch+'.pt', map_location=device)
         model.load_state_dict(state_dict)
+
     return model
 
 
