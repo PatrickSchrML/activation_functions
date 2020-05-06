@@ -20,11 +20,11 @@ class Net(nn.Module):
         self.fc2 = nn.Linear(128, 10)
         self.pau1 = nn.LeakyReLU()
         self.pau2 = nn.LeakyReLU()
-        self.pau3 = nn.LeakyReLU()
+        #self.pau3 = nn.LeakyReLU()
 
         #self.pau1 = PAU(trainable=True)
         #self.pau2 = PAU(trainable=True)
-        #self.pau3 = PAU(trainable=False)
+        self.pau3 = PAU(cuda=True)
 
     def forward(self, x):
         x = self.conv1(x)
