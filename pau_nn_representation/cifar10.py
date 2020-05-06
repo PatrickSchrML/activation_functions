@@ -1,7 +1,7 @@
 import os, shutil
 import torch
 from argparse import ArgumentParser
-from src.pau_nn_representation.pretrained.cifar10_module import CIFAR10_Module, CIFAR10_Module_represention
+from pau_nn_representation.pretrained.cifar10_module import CIFAR10_Module, CIFAR10_Module_represention
 from pytorch_lightning import Trainer
 
 
