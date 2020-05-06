@@ -18,9 +18,9 @@ class Net(nn.Module):
         self.dropout2 = nn.Dropout2d(0.5)
         self.fc1 = nn.Linear(9216, 128)
         self.fc2 = nn.Linear(128, 10)
-        self.pau1 = nn.ReLU() # PAU(trainable=True)
-        self.pau2 = nn.ReLU() # PAU(trainable=True)
-        self.pau3 = nn.ReLU() # PAU(trainable=False)
+        self.pau1 = nn.LeakyReLU() # PAU(trainable=True)
+        self.pau2 = nn.LeakyReLU() # PAU(trainable=True)
+        self.pau3 = nn.LeakyReLU() # PAU(trainable=False)
 
         #self.pau1 = nn.LeakyReLU()
         #self.pau2 = nn.LeakyReLU()
