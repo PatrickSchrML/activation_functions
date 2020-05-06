@@ -24,7 +24,7 @@ class Net(nn.Module):
 
         #self.pau1 = PAU(trainable=True)
         #self.pau2 = PAU(trainable=True)
-        self.pau3 = PAU(cuda=False)
+        self.pau3 = PAU(cuda=True)
 
     def forward(self, x):
         x = self.conv1(x)
