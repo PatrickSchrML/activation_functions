@@ -16,7 +16,8 @@ def train_representations(hparams):
 
     # Train
     classifier = CIFAR10_Module_represention(hparams)
-    trainer = Trainer(default_save_path=os.path.join(os.getcwd(), 'tensorboard_logs', hparams.classifier_approx),
+    trainer = Trainer(default_save_path=os.path.join(os.getcwd(), 'tensorboard_logs',
+                                                     hparams.classifier_approx + '_representation'),
                       gpus=[hparams.gpu], max_epochs=hparams.max_epochs,
                       early_stop_callback=False)
     trainer.fit(classifier)

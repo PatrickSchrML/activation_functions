@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
-from pau_torch.pade_activation_unit import PAU
+from pau_torch.pade_activation_unit import PAU, PAU_conv
 from torch.nn.utils import clip_grad_value_, clip_grad_norm_
 
 class Net(nn.Module):
@@ -18,13 +18,17 @@ class Net(nn.Module):
         self.dropout2 = nn.Dropout2d(0.)
         self.fc1 = nn.Linear(9216, 128)
         self.fc2 = nn.Linear(128, 10)
-        self.pau1 = PAU(cuda=True)
-        self.pau2 = PAU(cuda=True)
-        #self.pau3 = nn.LeakyReLU()
+        #self.pau1 = PAU(cuda=True)
+        #self.pau2 = PAU(cuda=True)
+        #self.pau3 = PAU(cuda=True)
 
-        #self.pau1 = PAU(trainable=True)
-        #self.pau2 = PAU(trainable=True)
+        self.pau1 = PAU_conv(channels=32)
+        self.pau2 = PAU_conv(channels=64)
         self.pau3 = PAU(cuda=True)
+
+        #self.pau1 = nn.LeakyReLU()
+        #self.pau2 = nn.LeakyReLU()
+        #self.pau3 = nn.LeakyReLU()
 
     def forward(self, x):
         x = self.conv1(x)
