@@ -22,9 +22,9 @@ class Net(nn.Module):
         #self.pau2 = PAU(cuda=True)
         #self.pau3 = PAU(cuda=True)
 
-        self.pau1 = PAU_conv(channels=32)
-        self.pau2 = PAU_conv(channels=64)
-        self.pau3 = PAU(cuda=True)
+        self.pau1 = PAU_conv(channels=32, cuda=False)
+        self.pau2 = PAU_conv(channels=64, cuda=False)
+        self.pau3 = PAU(cuda=False)
 
         #self.pau1 = nn.LeakyReLU()
         #self.pau2 = nn.LeakyReLU()
