@@ -10,6 +10,36 @@ except:
 from pau_torch.pade_pytorch_functions import *
 
 
+def _apply_along_channels(funcs, M):
+    tList = [funcs[i](m) for i, m in enumerate(torch.unbind(M, dim=1))]
+    res = torch.stack(tList, dim=1)
+    return res
+
+
+class PAU_conv(nn.Module):
+    def __init__(self, w_numerator=init_w_numerator, w_denominator=init_w_denominator, center=center, cuda=True,
+                 version="A", trainable=True, train_center=True, train_numerator=True, train_denominator=True,
+                 channels=1):
+        super(PAU_conv, self).__init__()
+
+        def pau_():
+            return PAU(w_numerator=w_numerator,
+                       w_denominator=w_denominator,
+                       center=center,
+                       cuda=cuda,
+                       version=version,
+                       trainable=trainable,
+                       train_center=train_center,
+                       train_numerator=train_numerator,
+                       train_denominator=train_denominator)
+
+        self.paus = torch.nn.ModuleList(modules=[pau_() for _ in range(channels)])
+
+    def forward(self, x):
+        x = _apply_along_channels(self.paus, x)
+        return x
+
+
 class PAU(nn.Module):
 
     def __init__(self, w_numerator=init_w_numerator, w_denominator=init_w_denominator, center=center, cuda=True,
