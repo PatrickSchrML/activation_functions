@@ -6,8 +6,8 @@ inp = inp.cuda()
 
 pau_conv = PAU_conv(channels=2, cuda=True)
 pau = PAU(cuda=True)
-pau_conv.cuda()
-pau.cuda()
+pau_conv = pau_conv.cuda()
+pau = pau.cuda()
 
 for name, p in pau_conv.named_parameters():
     if '0.center' in name:
