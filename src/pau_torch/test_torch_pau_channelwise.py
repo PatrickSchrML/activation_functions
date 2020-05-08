@@ -18,4 +18,5 @@ for name, p in pau.named_parameters():
 
 out = pau(inp)
 
+print(out.is_contiguous())
 print(out)

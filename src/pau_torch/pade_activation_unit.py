@@ -39,11 +39,6 @@ class PAU_conv(nn.Module):
         x = _apply_along_channels(self.paus, x)
         return x
 
-    def backward(self, grad_output):
-        if not grad_output.is_contiguous():
-            grad_output = grad_output.contiguous()
-        return grad_output
-
 
 class PAU(nn.Module):
 
