@@ -18,12 +18,12 @@ class Net(nn.Module):
         self.dropout2 = nn.Dropout2d(0.)
         self.fc1 = nn.Linear(9216, 128)
         self.fc2 = nn.Linear(128, 10)
-        #self.pau1 = PAU(cuda=True)
-        #self.pau2 = PAU(cuda=True)
+        self.pau1 = PAU(cuda=False)
+        self.pau2 = PAU(cuda=False)
         #self.pau3 = PAU(cuda=True)
 
-        self.pau1 = PAU_conv(channels=32, cuda=False)
-        self.pau2 = PAU_conv(channels=64, cuda=False)
+        #self.pau1 = PAU_conv(channels=32, cuda=False)
+        #self.pau2 = PAU_conv(channels=64, cuda=False)
         self.pau3 = PAU(cuda=False)
 
         #self.pau1 = nn.LeakyReLU()
