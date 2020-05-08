@@ -1,10 +1,11 @@
 import torch
-from src.pau_torch.pade_activation_unit import PAU_conv
+from pau_torch.pade_activation_unit import PAU_conv, PAU
 
 inp = torch.ones([1, 2, 8, 8], dtype=torch.float32)
-#inp = inp.cuda()
+inp = inp.cuda()
 
-pau = PAU_conv(channels=2, cuda=False)
+pau_conv = PAU_conv(channels=2, cuda=True)
+pau = PAU(cuda=True)
 
 for name, p in pau.named_parameters():
     if '0.center' in name:
@@ -17,6 +18,11 @@ for name, p in pau.named_parameters():
         print(name, p)
 
 out = pau(inp)
+
+print(out.is_contiguous())
+print(out)
+
+out = pau_conv(inp)
 
 print(out.is_contiguous())
 print(out)
