@@ -6,4 +6,4 @@
 /.idea/
 /cifar10_models/state_dicts/
 /state_dicts.zip
-/pau_nn_representation/RepDistiller/save/
+/pau_nn_representation/RepDistiller/save/*
