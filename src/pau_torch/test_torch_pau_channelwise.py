@@ -2,10 +2,12 @@ import torch
 from pau_torch.pade_activation_unit import PAU_conv, PAU
 
 inp = torch.ones([1, 2, 8, 8], dtype=torch.float32)
-#inp = inp.cuda()
+inp = inp.cuda()
 
-pau_conv = PAU_conv(channels=2, cuda=False)
-pau = PAU(cuda=False)
+pau_conv = PAU_conv(channels=2, cuda=True)
+pau = PAU(cuda=True)
+pau_conv.cuda()
+pau.cuda()
 
 for name, p in pau_conv.named_parameters():
     if '0.center' in name:
